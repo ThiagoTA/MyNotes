@@ -24,7 +24,7 @@ public class AnotacaoPreferencias {
     }
 
     public String recuperarAnotacao() {
-        return "";
+        return preferences.getString(CHAVE_NOME, "");
     }
 
 }

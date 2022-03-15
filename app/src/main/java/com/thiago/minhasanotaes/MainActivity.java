@@ -24,21 +24,21 @@ import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
 
+    private ActivityMainBinding binding;
+
     private AnotacaoPreferencias preferencias;
     private EditText editAnotacao;
-
-    private ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        IniciarComponentes();
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         preferencias = new AnotacaoPreferencias(getApplicationContext());
 
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        editAnotacao = findViewById(R.id.editAnotacao);
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -54,9 +54,11 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-    }
+        // Recuperar anotação
+        String anotacao = preferencias.recuperarAnotacao();
+        if (!anotacao.equals("")) {
+            editAnotacao.setText(anotacao);
+        }
 
-    private void IniciarComponentes() {
-        editAnotacao = findViewById(R.id.editAnotacao);
     }
 }
